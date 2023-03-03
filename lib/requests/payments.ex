@@ -132,43 +132,10 @@ defmodule Mercadopago.Requests.Payments do
           "payment_method_id": "visa",
           "transaction_amount": 58.8
         }         
-        iex> Mercadopago.Requests.Payments.show(data)
+        iex> Mercadopago.Requests.Payments.create(data)
 
     """
     def create(data) do
-        data =
-        %{
-          additional_info: %{
-            payer: %{
-              first_name: "Test",
-              last_name: "Test",
-              phone: %{
-                area_code: 11,
-                number: "987654321"
-              },
-            },
-            shipments: %{
-              receiver_address: %{
-                zip_code: "12312-123",
-                state_name: "Rio de Janeiro",
-                city_name: "Buzios",
-                street_name: "Av das Nacoes Unidas",
-                street_number: 3003
-              }
-            }
-          },
-          description: "Celular Xiaomi Redmi Note 11S 128gb 6gb Ram Versão Global Original azul",
-          external_reference: "MP0001",
-          installments: 1,
-          payer: %{
-            entity_type: "individual",
-            type: "customer",
-            identification: %{}
-          },
-          payment_method_id: "pix",
-          transaction_amount: 58
-        }  
-
         Mercadopago.API.post("/v1/payments", data)
     end
 
