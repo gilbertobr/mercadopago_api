@@ -9,7 +9,7 @@ defmodule Mercadopago.Requests.MerchantOrders do
 
     ## Examples
 
-        iex> Mercadopago.Requests.Payments.search()
+        iex> Mercadopago.Requests.MerchantOrders.search()
         {:ok,%{..., 
           [...,
           shipments: [],
@@ -34,7 +34,7 @@ defmodule Mercadopago.Requests.MerchantOrders do
 
     ## Examples
 
-        iex> Mercadopago.Requests.Payments.show("121221")
+        iex> Mercadopago.Requests.MerchantOrders.show("121221")
         {:ok,%{
         additional_info: "",
         application_id: nil,
