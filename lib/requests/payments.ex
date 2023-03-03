@@ -4,6 +4,30 @@ defmodule Mercadopago.Requests.Payments do
     """
 
     @doc """
+    Get payment methods
+    [docs](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get)    
+
+    ## Examples
+
+        iex> Mercadopago.Requests.Payments.methods()
+        {:ok, [%{
+        deferred_capture: "supported",
+        financial_institutions: [],
+        id: "amex",
+        max_allowed_amount: 60000,
+        min_allowed_amount: 0.5,
+        name: "American Express",
+        payment_type_id: "credit_card",
+        processing_modes: ["aggregator"],
+        secure_thumbnail: "https://www.mercadopago.com/org-img/MP3/API/logos/amex.gif",
+        ...
+        }]}    
+    """
+    def methods() do
+        Mercadopago.API.get("/v1/payment_methods")
+    end
+
+    @doc """
     Search in payments
     [docs](https://www.mercadopago.com.br/developers/pt/reference/payments/_payments_search/get)    
 
@@ -112,6 +136,39 @@ defmodule Mercadopago.Requests.Payments do
 
     """
     def create(data) do
+        data =
+        %{
+          additional_info: %{
+            payer: %{
+              first_name: "Test",
+              last_name: "Test",
+              phone: %{
+                area_code: 11,
+                number: "987654321"
+              },
+            },
+            shipments: %{
+              receiver_address: %{
+                zip_code: "12312-123",
+                state_name: "Rio de Janeiro",
+                city_name: "Buzios",
+                street_name: "Av das Nacoes Unidas",
+                street_number: 3003
+              }
+            }
+          },
+          description: "Celular Xiaomi Redmi Note 11S 128gb 6gb Ram Versão Global Original azul",
+          external_reference: "MP0001",
+          installments: 1,
+          payer: %{
+            entity_type: "individual",
+            type: "customer",
+            identification: %{}
+          },
+          payment_method_id: "pix",
+          transaction_amount: 58
+        }  
+
         Mercadopago.API.post("/v1/payments", data)
     end
 
