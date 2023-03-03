@@ -10,7 +10,7 @@ defmodule Mercadopago.Application do
 
     Agent.start_link(fn -> nil end, name: :token_agent)
 
-    children = if Application.get_env(:mercadopago, :environment) == :test, do: [], else: [worker(Task, [&refresh_token/0], [restart: :permanent])]
+    children = if Application.get_env(:mercadopago_api, :environment) == :test, do: [], else: [worker(Task, [&refresh_token/0], [restart: :permanent])]
 
     opts = [strategy: :one_for_one, name: Mercadopago.Supervisor]
     Supervisor.start_link(children, opts)

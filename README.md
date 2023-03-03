@@ -20,7 +20,7 @@ end
 ## config.exs
 
 ```elixir
-  config :mercadopago,
+  config :mercadopago_api,
     client_id: "MERCADOPAGO_CLIENT_ID",
     client_secret: "MERCADOPAGO_CLIENT_SECRET"
 ```

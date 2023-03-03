@@ -21,7 +21,7 @@ defmodule Mercadopago.Config do
 
   Example config.exs sample:
 
-      config :mercadopago,
+      config :mercadopago_api,
         client_id: "MERCADOPAGO_CLIENT_ID",
         client_secret: "MERCADOPAGO_CLIENT_SECRET",
 
@@ -36,7 +36,7 @@ defmodule Mercadopago.Config do
       true ->
         %{client_id: System.get_env("MERCADOPAGO_CLIENT_ID"), client_secret: System.get_env("MERCADOPAGO_CLIENT_SECRET")}
       _ ->
-        %{client_id: Application.get_env(:mercadopago, :client_id), client_secret: Application.get_env(:mercadopago, :client_secret)}
+        %{client_id: Application.get_env(:mercadopago_api, :client_id), client_secret: Application.get_env(:mercadopago_api, :client_secret)}
     end
   end
 end
