@@ -47,4 +47,74 @@ defmodule Mercadopago.Requests.MerchantOrders do
       Mercadopago.API.get("/merchant_orders/#{order_id}")
     end
 
+    @doc """
+    Create order
+    [docs](https://www.mercadopago.com.br/developers/pt/reference/merchant_orders/_merchant_orders/post)    
+
+    ## Examples
+        iex> data =
+        %{
+          "external_reference": "default",
+          "preference_id": "Preference identification",
+          "payer": {
+            "id": 123,
+            "nickname": "JOHN"
+          },
+          "site_id": "MLA",
+          "items": [
+            {
+              "id": "item id",
+              "category_id": "item category",
+              "currency_id": "BRL",
+              "description": "item description",
+              "picture_url": "item picture",
+              "quantity": 1,
+              "unit_price": 5,
+              "title": "item title"
+            }
+          ],
+          "application_id": 10000000000000000
+        }         
+        iex> Mercadopago.Requests.MerchantOrders.create(data)
+
+    """
+    def create(data) do
+      Mercadopago.API.post("/merchant_orders", data)
+    end
+
+    @doc """
+    Update order
+    [docs](https://www.mercadopago.com.br/developers/pt/reference/merchant_orders/_merchant_orders_id/put)    
+
+    ## Examples
+        iex> data =
+        %{
+          "external_reference": "default",
+          "preference_id": "Preference identification",
+          "payer": {
+            "id": 123,
+            "nickname": "JOHN"
+          },
+          "site_id": "MLA",
+          "items": [
+            {
+              "id": "item id",
+              "category_id": "item category",
+              "currency_id": "BRL",
+              "description": "item description",
+              "picture_url": "item picture",
+              "quantity": 1,
+              "unit_price": 5,
+              "title": "item title"
+            }
+          ],
+          "application_id": 10000000000000000
+        }
+        iex> Mercadopago.Requests.MerchantOrders.update("12345", data)
+
+    """
+    def update(order_id, data) do
+      Mercadopago.API.put("/merchant_orders/#{order_id}", data)
+    end
+
 end

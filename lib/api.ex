@@ -113,6 +113,67 @@ defmodule Mercadopago.API do
     end
   end  
 
+  @doc """
+  Make an HTTP PUT request to the correct API, adding the authentication required header.
+
+  ## Examples
+
+      iex> Mercadopago.API.put(url, data)
+      {:ok, {...}}
+
+  """
+  @spec put(String.t, map | list | nil) :: {:ok, map | :not_found | :no_content | nil} | {:error, :unauthorised | :bad_network | any}
+  def put(url, data) do
+    {:ok, data} = Poison.encode(data)
+    case HTTPoison.put(base_url() <> url, data, headers()) do
+      {:ok, %{status_code: 404}} ->
+        {:ok, :not_found}
+      {:ok, %{status_code: 401}} ->
+        {:error, :unauthorised}        
+      {:ok, %{status_code: 400}} ->
+        {:error, :bad_request}        
+      {:ok, %{status_code: 204}} ->
+        {:ok, nil}        
+      {:ok, %{body: body, status_code: 201}} ->
+        {:ok, Poison.decode!(body, keys: :atoms)}           
+      {:ok, %{body: body, status_code: 200}} ->
+        {:ok, Poison.decode!(body, keys: :atoms)}     
+      {:ok, %{body: body}} = resp ->
+        IO.inspect resp
+        {:error, body}
+      _ ->
+        {:error, :bad_network}
+    end
+  end    
+
+  @doc """
+  Make an HTTP DELETE request to the correct API, adding the authentication required header.
+
+  ## Examples
+
+      iex> Mercadopago.API.delete(url)
+      {:ok, {...}}
+
+  """  
+  def delete(url) do
+    case HTTPoison.delete(base_url() <> url, headers()) do
+      {:ok, %{status_code: 404}} ->
+        {:ok, :not_found}
+      {:ok, %{status_code: 401}} ->
+        {:error, :unauthorised}        
+      {:ok, %{status_code: 400}} ->
+        {:ok, :not_found}
+      {:ok, %{status_code: 204}} ->
+        {:ok, :no_content}
+      {:ok, %{body: body, status_code: 200}} ->
+        {:ok, Poison.decode!(body, keys: :atoms)}        
+      {:ok, %{body: body}}->
+        {:error, body}
+      _ ->
+        {:error, :bad_network}
+    end
+  end
+
   defp headers() do
     [
       {"Authorization", "Bearer #{mercadopago_token()}"},

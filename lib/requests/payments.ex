@@ -139,4 +139,22 @@ defmodule Mercadopago.Requests.Payments do
         Mercadopago.API.post("/v1/payments", data)
     end
 
+    @doc """
+    Update payment
+    [docs](https://www.mercadopago.com.br/developers/pt/reference/payments/_payments_id/put)    
+
+    ## Examples
+        iex> data =
+        %{
+          "capture": true,
+          "metadata": {},
+          "status": "cancelled",
+          "transaction_amount": 58.8
+        }         
+        iex> Mercadopago.Requests.Payments.update("12345", data)
+
+    """
+    def update(payment_id, data) do
+      Mercadopago.API.put("/v1/payments/#{payment_id}", data)
+    end
 end
