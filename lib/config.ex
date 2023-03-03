@@ -7,8 +7,8 @@ defmodule Mercadopago.Config do
 
   ## Examples
 
-    iex(1)> Mercadopago.Config.get
-    %{client_id: "MERCADOPAGO_CLIENT_ID", client_secret: "MERCADOPAGO_CLIENT_SECRET"}
+      iex(1)> Mercadopago.Config.get
+      %{client_id: "MERCADOPAGO_CLIENT_ID", client_secret: "MERCADOPAGO_CLIENT_SECRET"}
   """
 
   @doc """
@@ -21,14 +21,14 @@ defmodule Mercadopago.Config do
 
   Example config.exs sample:
 
-  config :mercadopago,
-    client_id: "MERCADOPAGO_CLIENT_ID",
-    client_secret: "MERCADOPAGO_CLIENT_SECRET",
+      config :mercadopago,
+        client_id: "MERCADOPAGO_CLIENT_ID",
+        client_secret: "MERCADOPAGO_CLIENT_SECRET",
 
   ## Examples
 
-    iex(1)> Mercadopago.Config.get
-    %{client_id: "MERCADOPAGO_CLIENT_ID", client_secret: "MERCADOPAGO_CLIENT_SECRET"}
+      iex(1)> Mercadopago.Config.get
+      %{client_id: "MERCADOPAGO_CLIENT_ID", client_secret: "MERCADOPAGO_CLIENT_SECRET"}
   """
   @spec get :: %{client_id: String.t, client_secret: String.t}
   def get do

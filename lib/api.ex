@@ -16,8 +16,8 @@ defmodule Mercadopago.API do
 
   ## Examples
 
-    iex> Mercadopago.API.create_token()
-    {:ok, {..}}
+      iex> Mercadopago.API.create_token()
+      {:ok, {..}}
 
   """  
   def create_token() do
@@ -57,8 +57,8 @@ defmodule Mercadopago.API do
 
   ## Examples
 
-    iex> Mercadopago.API.get(url)
-    {:ok, {...}}
+      iex> Mercadopago.API.get(url)
+      {:ok, {...}}
 
   """  
   def get(url) do
