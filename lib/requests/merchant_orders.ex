@@ -22,7 +22,7 @@ defmodule Mercadopago.Requests.MerchantOrders do
         ],
         next_offset: 20,
         total: 114
-        }}    
+        }
     """
     def search() do
         Mercadopago.API.get("/merchant_orders/search")
