@@ -45,7 +45,7 @@ defmodule Mercadopago.API do
   end
 
   @doc """
-  Make a HTTP GET request to the correct API depending on environment, adding needed auth header.
+  Make an HTTP GET request to the correct API, adding the authentication required header.
 
   Possible returns:
 
@@ -79,6 +79,39 @@ defmodule Mercadopago.API do
         {:error, :bad_network}
     end
   end
+
+  @doc """
+  Make an HTTP POST request to the correct API, adding the authentication required header.
+
+  ## Examples
+
+      iex> Mercadopago.API.post(url, data)
+      {:ok, {...}}
+
+  """
+  @spec post(String.t, map | list | nil) :: {:ok, map | :not_found | :no_content | nil} | {:error, :unauthorised | :bad_network | any}
+  def post(url, data) do
+    {:ok, data} = Poison.encode(data)
+    case HTTPoison.post(base_url() <> url, data, headers()) do
+      {:ok, %{status_code: 404}} ->
+        {:ok, :not_found}
+      {:ok, %{status_code: 401}} ->
+        {:error, :unauthorised}        
+      {:ok, %{status_code: 400}} ->
+        {:error, :bad_request}        
+      {:ok, %{status_code: 204}} ->
+        {:ok, nil}        
+      {:ok, %{body: body, status_code: 201}} ->
+        {:ok, Poison.decode!(body, keys: :atoms)}           
+      {:ok, %{body: body, status_code: 200}} ->
+        {:ok, Poison.decode!(body, keys: :atoms)}     
+      {:ok, %{body: body}} = resp ->
+        IO.inspect resp
+        {:error, body}
+      _ ->
+        {:error, :bad_network}
+    end
+  end  
 
   defp headers() do
     [
