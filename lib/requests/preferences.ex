@@ -102,44 +102,17 @@ defmodule Mercadopago.Requests.Preferences do
         iex> data =
         %{
           "items": [
-            {
+            %{
               "title": "Dummy Title",
               "description": "Dummy description",
               "picture_url": "http://www.myapp.com/myimage.jpg",
-              "category_id": "car_electronics",
+              "category_id": "services",
               "quantity": 1,
-              "currency_id": "U$",
+              "currency_id": "BRL",
               "unit_price": 10
             }
-          ],
-          "payer": {
-            "phone": {},
-            "identification": {},
-            "address": {}
-          },
-          "payment_methods": {
-            "excluded_payment_methods": [
-              {}
-            ],
-            "excluded_payment_types": [
-              {}
-            ]
-          },
-          "shipments": {
-            "free_methods": [
-              {}
-            ],
-            "receiver_address": {}
-          },
-          "back_urls": {},
-          "differential_pricing": {},
-          "tracks": [
-            {
-              "type": "google_ad"
-            }
-          ],
-          "metadata": {}
-        }         
+          ]
+        }   
         iex> Mercadopago.Requests.Preferences.create(data)
 
     """
@@ -154,12 +127,46 @@ defmodule Mercadopago.Requests.Preferences do
     ## Examples
         iex> data =
         %{
-          "name": "First POS",
-          "fixed_amount": false,
-          "category": 621102,
-          "store_id": 1234567
+          "items": [
+            %{
+              "title": "Dummy Title",
+              "description": "Dummy description",
+              "picture_url": "http://www.myapp.com/myimage.jpg",
+              "category_id": "car_electronics",
+              "quantity": 1,
+              "currency_id": "U$",
+              "unit_price": 10
+            }
+          ],
+          "payer": %{
+            "phone": %{},
+            "identification": %{},
+            "address": %{}
+          },
+          "payment_methods": %{
+            "excluded_payment_methods": [
+              %{}
+            ],
+            "excluded_payment_types": [
+              %{}
+            ]
+          },
+          "shipments": %{
+            "free_methods": [
+              %{}
+            ],
+            "receiver_address": %{}
+          },
+          "back_urls": %{},
+          "differential_pricing": %{},
+          "tracks": [
+            %{
+              "type": "google_ad"
+            }
+          ],
+          "metadata": %{}
         }         
-        iex> Mercadopago.Requests.Preferences.update(data)
+        iex> Mercadopago.Requests.Preferences.update("12345", data)
 
     """
     def update(preference_id, data) do
