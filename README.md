@@ -12,7 +12,7 @@ by adding `mercadopago_api` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:mercadopago_api, "~> 0.1.0"}
+    {:mercadopago_api, "~> 0.2.1"}
   ]
 end
 ```

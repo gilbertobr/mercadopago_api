@@ -64,11 +64,11 @@ defmodule Mercadopago.API do
   def get(url) do
     case HTTPoison.get(base_url() <> url, headers()) do
       {:ok, %{status_code: 404}} ->
-        {:ok, :not_found}
+        {:error, :not_found}
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}        
       {:ok, %{status_code: 400}} ->
-        {:ok, :not_found}
+        {:error, :not_found}
       {:ok, %{status_code: 204}} ->
         {:ok, :no_content}
       {:ok, %{body: body, status_code: 200}} ->
@@ -94,7 +94,7 @@ defmodule Mercadopago.API do
     {:ok, data} = Poison.encode(data)
     case HTTPoison.post(base_url() <> url, data, headers()) do
       {:ok, %{status_code: 404}} ->
-        {:ok, :not_found}
+        {:error, :not_found}
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}        
       {:ok, %{status_code: 400}} ->
@@ -127,7 +127,7 @@ defmodule Mercadopago.API do
     {:ok, data} = Poison.encode(data)
     case HTTPoison.put(base_url() <> url, data, headers()) do
       {:ok, %{status_code: 404}} ->
-        {:ok, :not_found}
+        {:error, :not_found}
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}        
       {:ok, %{status_code: 400}} ->
@@ -158,11 +158,11 @@ defmodule Mercadopago.API do
   def delete(url) do
     case HTTPoison.delete(base_url() <> url, headers()) do
       {:ok, %{status_code: 404}} ->
-        {:ok, :not_found}
+        {:error, :not_found}
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}        
       {:ok, %{status_code: 400}} ->
-        {:ok, :not_found}
+        {:error, :not_found}
       {:ok, %{status_code: 204}} ->
         {:ok, :no_content}
       {:ok, %{body: body, status_code: 200}} ->
